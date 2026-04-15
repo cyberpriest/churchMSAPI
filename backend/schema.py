@@ -1,13 +1,16 @@
 from unittest.mock import Base
-from pydantic import BaseModel,EmailStr
-from typing import Optional
+from pydantic import BaseModel,EmailStr, StringConstraints
+from typing import Annotated, Optional
 from datetime import datetime
 
 
 ######### User SCHEMA ##########
 class UserBase(BaseModel):
     email: str
-    password: str
+    password: Annotated[
+        str,
+        StringConstraints(min_length=6, max_length=72)
+    ]
 
 
 class CreateUser(UserBase):
