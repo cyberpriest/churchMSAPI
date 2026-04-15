@@ -1,9 +1,13 @@
-from fastapi import  FastAPI 
+from fastapi import  FastAPI
 from database import engine,Base
 from starlette.middleware.sessions import SessionMiddleware
 from admin import setup_admin
 from fastapi.middleware.cors import CORSMiddleware
+from os import getenv
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
 
 from Routers.membersrouter import member_router
 from Routers.authsrouter import auth_router
@@ -20,9 +24,9 @@ app.add_middleware(
     ],  # Adjust this in production to restrict origins
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],    
+    allow_headers=["*"],
 )
-app.add_middleware(SessionMiddleware, secret_key='your-session-secret-key')
+app.add_middleware(SessionMiddleware, secret_key=getenv('SESSION_SECRET_KEY', 'fallback_session_key_change_in_production'))
 
 Base.metadata.create_all(bind=engine)
 

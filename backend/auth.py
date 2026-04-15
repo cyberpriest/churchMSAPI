@@ -1,22 +1,21 @@
 from fastapi.security import OAuth2PasswordBearer
-from passlib.context import CryptContext 
+from passlib.context import CryptContext
 from jose import JWTError,jwt
 from sqlalchemy.orm import Session
 from models import User,RolesEnum
 from datetime import timedelta,datetime
 from fastapi import HTTPException , status ,Depends
 from database import get_db
+from os import getenv
+from dotenv import load_dotenv
 
-
-
-
+# Load environment variables
+load_dotenv()
 
 oauth = OAuth2PasswordBearer(tokenUrl='auth/login')
-bcrypt = CryptContext(schemes=['bcrypt'],deprecated='auto') 
+bcrypt = CryptContext(schemes=['bcrypt'],deprecated='auto')
 
-
-
-SECRET_KEY = 'my secretkey'
+SECRET_KEY = getenv('SECRET_KEY', 'fallback_secret_key_change_in_production')
 EXPIRE_TIME =  20
 
 
