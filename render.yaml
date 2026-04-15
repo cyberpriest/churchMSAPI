@@ -30,6 +30,5 @@ services:
 
   - type: pserv
     name: churchms-db
-    env: postgres
     plan: free
     region: oregon
