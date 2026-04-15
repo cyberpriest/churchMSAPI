@@ -1,6 +1,5 @@
 
-from duckdb import limit
-from sqlalchemy.orm import Session 
+from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
 import schema, auth, database
 
