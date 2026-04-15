@@ -37,6 +37,6 @@ def get_service(service_id:int,db:Session = Depends(get_db)):
 
 @service_router.get('/',response_model=list[schema.ServiceOut])
 def get_services(db:Session = Depends(get_db)):
-    services = get_all_service(db)
+    services = get_all_services(db)
     return services
 
