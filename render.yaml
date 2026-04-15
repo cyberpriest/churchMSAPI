@@ -28,7 +28,7 @@ services:
           name: churchms-db
           property: connectionString
 
-  - type: pserv
-    name: churchms-db
+databases:
+  - name: churchms-db
     plan: free
     region: oregon
