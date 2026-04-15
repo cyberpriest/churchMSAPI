@@ -4,7 +4,7 @@ from fastapi import APIRouter,Depends,HTTPException
 import schema,auth
 from database import get_db 
 from sqlalchemy.orm import Session
-from CRUD.servicecrud import get_all_service, get_service_by_id,get_all_services,CreateService,UpdateService,DeleteService
+from CRUD.servicecrud import  get_service_by_id,get_all_services,CreateService,UpdateService,DeleteService
 from enumutils import RolesEnum as roles
 
 service_router = APIRouter(prefix='/services',tags=['SERVICES'])
