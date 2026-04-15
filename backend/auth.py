@@ -20,7 +20,7 @@ EXPIRE_TIME =  20
 
 
 def gen_pwd_hash(pwd:str)->str:
-    pwd = pwd[:72]  # truncate
+  
     return bcrypt.hash(pwd)
 
 def check_pwd_hash(plain_pwd:str,secret_pwd:str)->bool:
