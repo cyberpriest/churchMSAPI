@@ -4,6 +4,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from admin import setup_admin
 from fastapi.middleware.cors import CORSMiddleware
 from os import getenv
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -27,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.add_middleware(SessionMiddleware, secret_key=getenv('SESSION_SECRET_KEY', 'fallback_session_key_change_in_production'))
-
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=["*"])
 Base.metadata.create_all(bind=engine)
 
 app.include_router(auth_router)
