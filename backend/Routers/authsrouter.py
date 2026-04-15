@@ -28,7 +28,7 @@ def createuser(user_in:schema.CreateUser,db:Session = Depends(database.get_db)):
 @auth_router.post('/login',response_model=schema.Token)
 
 def loginuser(formdata:OAuth2PasswordRequestForm = Depends(),db:Session =  Depends(database.get_db)):
-        email = formdata.email
+        email = formdata.username
         user = auth.authenticate(db,email =  email,password=formdata.password)
         _create_token = auth.encode_token(data={'sub':user.email,'role':user.role.value,'user_id':user.id})
         return {'access_token':_create_token,'token_type':'bearer'}
