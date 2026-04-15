@@ -17,7 +17,7 @@ def createuser(user_in:schema.CreateUser,db:Session = Depends(database.get_db)):
     user = authcrud.createUser(
         db,
         user_in.email,
-        user_in.password
+        auth.gen_pwd_hash(user_in.password)
         )
     
     return user
