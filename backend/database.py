@@ -14,7 +14,7 @@ DATABASE_URL = getenv('DATABASE_URL', 'sqlite:///db.db')
 if DATABASE_URL.startswith('postgres://'):
     DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=True,pool_pre_ping=True,pool_recycle=300)
 SessionLocal = sessionmaker(autoflush=False, bind=engine, expire_on_commit=False)
 
 Base = declarative_base()
