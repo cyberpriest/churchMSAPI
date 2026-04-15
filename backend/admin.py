@@ -56,7 +56,7 @@ class AuthAdmin(AuthenticationBackend):
             try:
 
                 user = db.query(User).filter(User.email == email).first()
-                return user is not None and user.role.value == 'admin'
+                return user is not None 
             finally:
                 db.close()
         
