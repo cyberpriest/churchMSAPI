@@ -10,8 +10,8 @@ import schema
 def get_service_by_id(db:Session,service_id:int):
     return db.query(Service).filter(Service.id == service_id).first() 
 
-def get_all_services(db:Session):
-    return db.query(Service).all()
+def get_all_service(db:Session):
+    return db.query(Service).order_by(Service.service_date.desc()).all()
 
 
 
@@ -45,3 +45,5 @@ def DeleteService(db:Session,service_id:int):
     db.delete(service)
     db.commit()
     return {'detail':'service deleted successfully'}    
+
+

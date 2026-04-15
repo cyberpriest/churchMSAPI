@@ -4,7 +4,7 @@ from fastapi import APIRouter,Depends,HTTPException
 import schema,auth
 from database import get_db 
 from sqlalchemy.orm import Session
-from CRUD.servicecrud import get_service_by_id,get_all_services,CreateService,UpdateService
+from CRUD.servicecrud import get_all_service, get_service_by_id,get_all_services,CreateService,UpdateService,DeleteService
 from enumutils import RolesEnum as roles
 
 service_router = APIRouter(prefix='/services',tags=['SERVICES'])
@@ -24,5 +24,19 @@ def update_service(service_id:int,service_in:schema.UpdateService,
     service = UpdateService(db,service_id,service_in)
     return service
 
+@service_router.delete('/{service_id}',response_model=schema.ServiceOut)
+def delete_service(service_id:int,db:Session = Depends(get_db)):
+    delservice = DeleteService(db,service_id)
+    return delservice
 
+@service_router.get('/{service_id}',response_model=schema.ServiceOut)
+def get_service(service_id:int,db:Session = Depends(get_db)):
+    service = get_service_by_id(db,service_id)
+    return service
+
+
+@service_router.get('/',response_model=list[schema.ServiceOut])
+def get_services(db:Session = Depends(get_db)):
+    services = get_all_service(db)
+    return services
 
