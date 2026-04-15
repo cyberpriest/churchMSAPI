@@ -33,4 +33,3 @@ services:
     env: postgres
     plan: free
     region: oregon
-    postgresVersion: "14"
