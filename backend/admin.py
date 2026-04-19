@@ -56,7 +56,7 @@ class AuthAdmin(AuthenticationBackend):
             try:
 
                 user = db.query(User).filter(User.email == email).first()
-                return user is not None 
+                return user is not None  and user.role.value == 'admin'
             finally:
                 db.close()
         
@@ -227,8 +227,8 @@ class AttendanceAdmin(ModelView, model=Attendance):
     page_size = 20
     page_size_options = [10, 20, 50]
 def setup_admin(app,engine):
-    auth_backend = AuthAdmin(secret_key='your-session-secret-key')
-    admin = Admin(app, engine, title=" Charis Bapt. CMS ", authentication_backend=auth_backend)
+    auth_backend = AuthAdmin(secret_key='fallback_session_key_change_in_production')
+    admin = Admin(app, engine, title="Charis Bapt. CMS", authentication_backend=auth_backend)
     admin.add_view(UserAdmin)
     admin.add_view(MemberAdmin)
     admin.add_view(AttendanceAdmin)

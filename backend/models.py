@@ -64,7 +64,12 @@ class Attendance(Base):
     member = relationship('Member', back_populates='attendance')     # fixed: was pointing back to 'Attendance'
 
     def __str__(self):
-        return f'{self.service}-{self.member}' or 'Unnamed Attendance'
+        try:
+            member_name = str(self.member) if self.member else 'no member'
+            service_name = str(self.service) if self.service else 'no service'
+            return f'{member_name}-{service_name}'
+        except Exception:
+            return f'Attendance {self.id}'
 
 
 

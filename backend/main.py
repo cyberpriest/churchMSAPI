@@ -19,16 +19,16 @@ from Routers.servicerouter import service_router
 app = FastAPI(title=' CHRUCH MANAGEMENT SYS. ')
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        'http://localhost:3000/',
-        'http://127.0.0.1:3000/'
-    ],  # Adjust this in production to restrict origins
+    allow_origins=['*'] , # Adjust this in production to restrict origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(SessionMiddleware, secret_key=getenv('SESSION_SECRET_KEY', 'fallback_session_key_change_in_production'))
-app.add_middleware(ProxyHeadersMiddleware, trusted_hosts=["*"])
+app.add_middleware(SessionMiddleware,
+                   same_site='lax',
+                   https_only=True,
+                   secret_key='fallback_session_key_change_in_production')
+
 Base.metadata.create_all(bind=engine)
 
 app.include_router(auth_router)

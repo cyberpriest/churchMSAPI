@@ -8,18 +8,15 @@ load_dotenv()
 
 DATABASE_URL = getenv('DATABASE_URL', 'sqlite:///db.db')
 
+# Railway provides 'postgres://' but SQLAlchemy requires 'postgresql://'
 if DATABASE_URL.startswith('postgres://'):
     DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
 
-# ✅ ADD THIS
-if "postgresql://" in DATABASE_URL and "sslmode=" not in DATABASE_URL:
-    DATABASE_URL += "?sslmode=require"
-
 engine = create_engine(
     DATABASE_URL,
-    echo=True,
-    pool_pre_ping=True,
-    pool_recycle=300
+    echo=True,           # logs SQL queries — change to False in production
+    pool_pre_ping=True,  # prevents stale connections
+    pool_recycle=300     # refreshes connections every 5 mins
 )
 
 SessionLocal = sessionmaker(
@@ -29,6 +26,7 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()
