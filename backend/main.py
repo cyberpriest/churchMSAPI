@@ -19,7 +19,7 @@ from Routers.servicerouter import service_router
 app = FastAPI(title=' CHRUCH MANAGEMENT SYS. ')
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'] , # Adjust this in production to restrict origins
+    allow_origins=['https://b4bf9a33-eb59-4655-b543-fd5238a46652-00-2veq4rcu396gy.riker.replit.dev'] , # Adjust this in production to restrict origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
