@@ -22,6 +22,7 @@ app.add_middleware(
     allow_origins=[
 
    'https://church-management-system--joshuatimi41.replit.app',
+   'https://v0-church-management-system-nu-wheat.vercel.app',
     'https://b4bf9a33-eb59-4655-b543-fd5238a46652-00-2veq4rcu396gy.riker.replit.dev'] , # Adjust this in production to restrict origins
     allow_credentials=True,
     allow_methods=["*"],
